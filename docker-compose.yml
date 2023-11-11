@@ -1,0 +1,28 @@
+version: '3'
+services:
+  bookmedik:
+	container_name: mariadb
+	image: mbojados/bookmedik:v1
+	restart: always
+	environment:
+	  Usuario_bookmedik: bookmedik_user
+	  Pass_Bookmedik: hola123
+	  Nombre_db: bookmedik
+	  Database_host: mariadb
+	ports:
+	  - 8082:80
+	depends_on:
+	  - db
+  db:
+	container_name: mariadb
+	image: mariadb
+	restart: always
+	enviroment:
+	  mariadb_user: db_user
+	  mariadb_password: hola123
+	  mariadb_database: bookmedik
+	  mariadb_root_password: Hola1234
+	volumes:
+	  - mariadb_data:/var/lib/mysql
+  volumes:
+	mariadb_data:
